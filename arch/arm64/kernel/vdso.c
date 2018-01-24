@@ -364,21 +364,6 @@ void update_vsyscall(struct timekeeper *tk)
 #else
 	if (!use_syscall) {
 #endif
-		struct timespec btm = ktime_to_timespec(tk->offs_boot);
-
-		/* tkr_mono.cycle_last == tkr_raw.cycle_last */
-		vdso_data->cs_cycle_last	= tk->tkr_mono.cycle_last;
-		vdso_data->raw_time_sec         = tk->raw_sec;
-		vdso_data->raw_time_nsec        = tk->tkr_raw.xtime_nsec;
-		vdso_data->xtime_clock_sec	= tk->xtime_sec;
-		vdso_data->xtime_clock_snsec	= tk->tkr_mono.xtime_nsec;
-		/* tkr_raw.xtime_nsec == 0 */
-		vdso_data->cs_mono_mult		= tk->tkr_mono.mult;
-		vdso_data->cs_raw_mult		= tk->tkr_raw.mult;
-		/* tkr_mono.shift == tkr_raw.shift */
-		vdso_data->cs_shift		= tk->tkr_mono.shift;
-		vdso_data->btm_sec		= btm.tv_sec;
-		vdso_data->btm_nsec		= btm.tv_nsec;
 	}
 
 	smp_wmb();
