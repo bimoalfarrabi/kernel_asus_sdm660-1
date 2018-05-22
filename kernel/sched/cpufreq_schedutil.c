@@ -161,7 +161,7 @@ static void sugov_update_commit(struct sugov_policy *sg_policy, u64 time,
 			return;
 
 		policy->cur = next_freq;
-//		trace_cpu_frequency(next_freq, smp_processor_id());
+		trace_cpu_frequency(next_freq, smp_processor_id());
 	} else if (!sg_policy->work_in_progress) {
 		sg_policy->work_in_progress = true;
 		irq_work_queue(&sg_policy->irq_work);
@@ -461,6 +461,7 @@ static void sugov_work(struct kthread_work *work)
 	mutex_lock(&sg_policy->work_lock);
 	__cpufreq_driver_target(sg_policy->policy, freq, CPUFREQ_RELATION_L);
 	mutex_unlock(&sg_policy->work_lock);
+
 }
 
 static void sugov_irq_work(struct irq_work *irq_work)
