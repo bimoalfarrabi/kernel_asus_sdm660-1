@@ -1872,7 +1872,7 @@ static long gpumem_free_entry(struct kgsl_mem_entry *entry)
 	if (!kgsl_mem_entry_set_pend(entry))
 		return -EBUSY;
 
-	trace_kgsl_mem_free(entry);
+	//trace_kgsl_mem_free(entry);
 
 	if (entry->memdesc.pagetable != NULL)
 		ptname = entry->memdesc.pagetable->name;
@@ -1895,8 +1895,9 @@ static void gpumem_free_func(struct kgsl_device *device,
 	kgsl_readtimestamp(device, context, KGSL_TIMESTAMP_RETIRED, &timestamp);
 
 	/* Free the memory for all event types */
-	trace_kgsl_mem_timestamp_free(device, entry, KGSL_CONTEXT_ID(context),
+/*	trace_kgsl_mem_timestamp_free(device, entry, KGSL_CONTEXT_ID(context),
 		timestamp, 0);
+*/
 	kgsl_mem_entry_put(entry);
 }
 
@@ -1911,8 +1912,8 @@ static long gpumem_free_entry_on_timestamp(struct kgsl_device *device,
 		return -EBUSY;
 
 	kgsl_readtimestamp(device, context, KGSL_TIMESTAMP_RETIRED, &temp);
-	trace_kgsl_mem_timestamp_queue(device, entry, context->id, temp,
-		timestamp);
+//	trace_kgsl_mem_timestamp_queue(device, entry, context->id, temp,
+//		timestamp);
 	ret = kgsl_add_event(device, &context->events,
 		timestamp, gpumem_free_func, entry);
 
@@ -3403,7 +3404,7 @@ long kgsl_ioctl_sparse_phys_alloc(struct kgsl_device_private *dev_priv,
 	param->id = entry->id;
 	param->flags = entry->memdesc.flags;
 
-	trace_sparse_phys_alloc(entry->id, param->size, param->pagesize);
+//	trace_sparse_phys_alloc(entry->id, param->size, param->pagesize);
 	kgsl_mem_entry_commit_process(entry);
 
 	/* put the extra refcount for kgsl_mem_entry_create() */
