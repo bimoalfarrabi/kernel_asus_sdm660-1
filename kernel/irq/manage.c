@@ -1455,6 +1455,7 @@ __setup_irq(unsigned int irq, struct irq_desc *desc, struct irqaction *new)
 			raw_spin_unlock(&perf_irqs_lock);
 		} else {
 			setup_affinity(desc, mask);
+		}
 
 	} else if (new->flags & IRQF_TRIGGER_MASK) {
 		unsigned int nmsk = new->flags & IRQF_TRIGGER_MASK;
