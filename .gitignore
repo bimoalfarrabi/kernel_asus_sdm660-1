@@ -130,3 +130,4 @@ out/
 
 # ignore build script 
 build.sh
+output.txt
