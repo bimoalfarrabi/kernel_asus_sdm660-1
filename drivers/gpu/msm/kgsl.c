@@ -1993,11 +1993,7 @@ static long gpumem_free_entry_on_timestamp(struct kgsl_device *device,
 	kgsl_readtimestamp(device, context, KGSL_TIMESTAMP_RETIRED, &temp);
 //	trace_kgsl_mem_timestamp_queue(device, entry, context->id, temp,
 //		timestamp);
-<<<<<<< HEAD
-	ret = kgsl_add_event(device, &context->events,
-=======
 	ret = kgsl_add_low_prio_event(device, &context->events,
->>>>>>> ad3740e8dd27... kgsl: add low_prio_worker thread
 		timestamp, gpumem_free_func, entry);
 
 	if (ret)
